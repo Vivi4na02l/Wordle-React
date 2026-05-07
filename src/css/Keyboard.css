@@ -1,0 +1,90 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 0.5rem;
+    background-color: #6d6d6d;
+}
+
+.key:hover {
+    cursor: pointer;
+    background-color: #5a5a5a;
+}
+
+@media screen and (max-width: 390px) {
+    .key-letters {
+        width: 2rem;
+        height: 3rem;
+
+        flex-shrink: 1;
+        min-width: 0;
+    }
+
+    .key-action {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .key-action img {
+        width: 1.1rem;
+    }
+
+    .key {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 391px) and (max-width: 450px) {
+    .key-letters {
+        width: 2.5rem;
+        height: 3.5rem;
+    }
+
+    .key-action {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+
+    .key-action img {
+        width: 1.5rem;
+    }
+
+    .key {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 451px) {
+    .key-letters {
+        width: 3rem;
+        height: 4rem;
+    }
+
+    .key-action {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .key-action img {
+        width: 2rem;
+    }
+
+    .key {
+        font-size: 1.5rem;
+    }
+}
