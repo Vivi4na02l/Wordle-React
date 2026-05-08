@@ -1,7 +1,7 @@
 import classes from '../css/Keyboard.module.css'
 import deleteIcon from "../assets/delete.png";
 
-export default function Keyboard({letterClicked, deleteClicked}) {
+export default function Keyboard({letterClicked, deleteClicked, enterClicked}) {
     const keyboardArray = [
         ["Q","W","E","R","T","Y","U","I","O","P"],
         ["A","S","D","F","G","H","J","K","L"],
@@ -15,7 +15,10 @@ export default function Keyboard({letterClicked, deleteClicked}) {
 
                     {/* if it's the last row, add key ENTER */}
                     {i == keyboardArray.length-1 && (
-                        <div className={`${classes.key} ${classes.keyAction}`}>ENTER</div>
+                        <div className={`${classes.key} ${classes.keyAction}`}
+                             onClick={() => enterClicked()}>
+                            ENTER
+                        </div>
                     )}
                     
                     {/* LETTERS */}

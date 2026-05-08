@@ -8,6 +8,7 @@ export default function Wordle() {
     
     const [nbrWordsGuessed, setNbrWordsGuessed] = useState(0);
     const [guessingWord, setGuessingWord] = useState([]);
+    const [guessedWords, setGuessedWords] = useState([]);
     
     useEffect(() => {
         async function getWord() {
@@ -25,6 +26,10 @@ export default function Wordle() {
         getWord();
     }, [])
 
+    /**
+     * adds letters clicked to the word being written in the "board"
+     * @param {*} letter 
+     */
     function letterClicked(letter) {
         console.log(letter);
         
@@ -36,6 +41,9 @@ export default function Wordle() {
         
     }
 
+    /**
+     * deletes the last letter from the word being written
+     */
     function deleteClicked() {
         setGuessingWord(prevGuessingWord => {
             const copy = [...prevGuessingWord]
@@ -44,10 +52,19 @@ export default function Wordle() {
         })
     }
 
+    function enterClicked() {
+        const guessedWord = guessingWord.join("");
+        setGuessedWords(prevGuessedWords => [...prevGuessedWords, guessedWord]) //pushes guessedWord to the array
+
+        console.log(guessedWords);
+        setNbrWordsGuessed(nbrPrev => nbrPrev +1)
+        setGuessingWord([])
+    }
+
     return (
         <main>
-            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord}/>
-            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked}/>
+            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords}/>
+            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked}/>
         </main>
     )
 }
