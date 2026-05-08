@@ -22,8 +22,7 @@ export default function Wordle() {
 
     return (
         <main>
-            <h2>{randomWord}</h2>
-            <WordsBoard />
+            <WordsBoard word={randomWord} />
             <Keyboard />
         </main>
     )

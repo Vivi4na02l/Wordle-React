@@ -1,4 +1,4 @@
-import '../css/Keyboard.css'
+import classes from '../css/Keyboard.module.css'
 import deleteIcon from "../assets/delete.png";
 
 export default function Keyboard() {
@@ -9,25 +9,25 @@ export default function Keyboard() {
     ]
 
     return (
-        <section>
+        <section className={classes.sectionKeyboard}>
             {keyboardArray.map((row, i) => (
-                <div className="row" key={i}>
+                <div className={classes.row} key={i}>
 
                     {/* if it's the last row, add key ENTER */}
                     {i == keyboardArray.length-1 && (
-                        <div className="key key-action">ENTER</div>
+                        <div className={`${classes.key} ${classes.keyAction}`}>ENTER</div>
                     )}
                     
                     {/* LETTERS */}
                     {row.map((letter,i) => (
-                        <div className="key key-letters" key={i}>
+                        <div className={`${classes.key} ${classes.keyLetters}`} key={i}>
                             <p>{letter}</p>
                         </div>
                     ))}
 
                     {/* if it's the last row, add key DELETE */}
                     {i == keyboardArray.length-1 && (
-                        <div className="key key-action">
+                        <div className={`${classes.key} ${classes.keyAction}`}>
                             <img src={deleteIcon} alt="Delete" />
                         </div>
                     )}

@@ -1,4 +1,4 @@
-section {
+.sectionKeyboard {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -27,7 +27,7 @@ section {
 }
 
 @media screen and (max-width: 390px) {
-    .key-letters {
+    .keyLetters {
         width: 2rem;
         height: 3rem;
 
@@ -35,12 +35,12 @@ section {
         min-width: 0;
     }
 
-    .key-action {
+    .keyAction {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
 
-    .key-action img {
+    .keyAction img {
         width: 1.1rem;
     }
 
@@ -50,17 +50,17 @@ section {
 }
 
 @media screen and (min-width: 391px) and (max-width: 450px) {
-    .key-letters {
+    .keyLetters {
         width: 2.5rem;
         height: 3.5rem;
     }
 
-    .key-action {
+    .keyAction {
         padding-left: 0.7rem;
         padding-right: 0.7rem;
     }
 
-    .key-action img {
+    .keyAction img {
         width: 1.5rem;
     }
 
@@ -70,17 +70,17 @@ section {
 }
 
 @media screen and (min-width: 451px) {
-    .key-letters {
+    .keyLetters {
         width: 3rem;
         height: 4rem;
     }
 
-    .key-action {
+    .keyAction {
         padding-left: 1rem;
         padding-right: 1rem;
     }
 
-    .key-action img {
+    .keyAction img {
         width: 2rem;
     }
 

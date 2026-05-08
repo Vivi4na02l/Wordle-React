@@ -1,0 +1,17 @@
+.sectionWords {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.letter {
+    width: 5rem;
+    height: 5rem;
+
+    border: solid 0.1rem #6d6d6d;
+}
