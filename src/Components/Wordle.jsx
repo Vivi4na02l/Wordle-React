@@ -36,10 +36,18 @@ export default function Wordle() {
         
     }
 
+    function deleteClicked() {
+        setGuessingWord(prevGuessingWord => {
+            const copy = [...prevGuessingWord]
+            copy.pop()
+            return copy
+        })
+    }
+
     return (
         <main>
             <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord}/>
-            <Keyboard letterClicked={letterClicked} />
+            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked}/>
         </main>
     )
 }

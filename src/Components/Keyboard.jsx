@@ -1,7 +1,7 @@
 import classes from '../css/Keyboard.module.css'
 import deleteIcon from "../assets/delete.png";
 
-export default function Keyboard({letterClicked}) {
+export default function Keyboard({letterClicked, deleteClicked}) {
     const keyboardArray = [
         ["Q","W","E","R","T","Y","U","I","O","P"],
         ["A","S","D","F","G","H","J","K","L"],
@@ -28,7 +28,8 @@ export default function Keyboard({letterClicked}) {
 
                     {/* if it's the last row, add key DELETE */}
                     {i == keyboardArray.length-1 && (
-                        <div className={`${classes.key} ${classes.keyAction}`}>
+                        <div className={`${classes.key} ${classes.keyAction}`}
+                             onClick={() => deleteClicked()}>
                             <img src={deleteIcon} alt="Delete" />
                         </div>
                     )}
