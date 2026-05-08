@@ -3,14 +3,16 @@ import WordsBoard from './WordsBroad.jsx'
 import Keyboard from'./Keyboard.jsx'
 
 export default function Wordle() {
-    const randomLength = Math.floor(Math.random() * 3)+4;
     const [randomWord, setRandomWord] = useState("");
-
+    const [wordLength, setWordLength] = useState(4);
+    
     const [nbrWordsGuessed, setNbrWordsGuessed] = useState(0);
     const [guessingWord, setGuessingWord] = useState([]);
     
     useEffect(() => {
         async function getWord() {
+            const randomLength = Math.floor(Math.random() * 3)+4;
+            setWordLength(randomLength)
 
             const response = await fetch(`https://random-words-api.kushcreates.com/api?words=1&language=en&category=animals&length=${randomLength}`);
 
@@ -26,7 +28,7 @@ export default function Wordle() {
     function letterClicked(letter) {
         console.log(letter);
         
-        if (guessingWord.length < randomLength) {
+        if (guessingWord.length < wordLength) {
             setGuessingWord(prevGuessingWord => [...prevGuessingWord, letter]) //pushes letter clicked to the array
         }
         
