@@ -10,6 +10,8 @@ export default function Wordle() {
     const [guessingWord, setGuessingWord] = useState([]);
     const [guessedWords, setGuessedWords] = useState([]);
 
+    const [guessedLetters, setGuessedLetters] = useState([[],[],[],[],[],[]]);
+
     const [shake,setShake] = useState(false);
     
     useEffect(() => {
@@ -60,10 +62,12 @@ export default function Wordle() {
     async function enterClicked() {
         const guessedWord = guessingWord.join("");
 
-        const exists = await validateGuessedWord(guessedWord);
+        const exists = await doesGuessedWordExist(guessedWord);
 
         if (exists == true) {
             console.log("word exists");
+
+            validateGuessedWord();
 
             setGuessedWords(prevGuessedWords => [...prevGuessedWords, guessedWord]) //pushes guessedWord to the array
             setNbrWordsGuessed(nbrPrev => nbrPrev +1) //moves on to the next line
@@ -71,6 +75,47 @@ export default function Wordle() {
         } else {
             console.log("word doesn't exist");
             triggerShake()
+        }
+    }
+
+    function validateGuessedWord() {
+        const lettersChosenWord = randomWord.split('')
+        for (const letterGuessingWord of guessingWord) {
+
+            // if a letter of guessing word exists within the chosen word
+            if (lettersChosenWord.includes(letterGuessingWord)) {
+
+                // if both of the letters are in the same position
+                if (lettersChosenWord.findIndex((letter => letter == letterGuessingWord)) == guessingWord.findIndex((letter => letter == letterGuessingWord))) {
+                    const letterObject = {
+                        letter: letterGuessingWord,
+                        color: "#27ca11"
+                    }
+
+                    setGuessedLetters(prevGuessedLetters => {
+                        const newGuessedLetters = [...prevGuessedLetters]
+
+                        newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
+
+                        return newGuessedLetters
+                    })
+
+                // if they are in different positions
+                } else {
+                    const letterObject = {
+                        letter: letterGuessingWord,
+                        color: "#cabe11"
+                    }
+
+                    setGuessedLetters(prevGuessedLetters => {
+                        const newGuessedLetters = [...prevGuessedLetters]
+
+                        newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
+
+                        return newGuessedLetters
+                    })
+                }
+            }
         }
     }
 
@@ -86,7 +131,7 @@ export default function Wordle() {
      * api that checks if the word written by the user exists
      * @param {*} word 
      */
-    async function validateGuessedWord(word) {
+    async function doesGuessedWordExist(word) {
         try {
             const response = await fetch(
                 `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
@@ -113,7 +158,7 @@ export default function Wordle() {
 
     return (
         <main>
-            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} shake={shake}/>
+            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedLetters={guessedLetters} shake={shake}/>
             <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked}/>
         </main>
     )

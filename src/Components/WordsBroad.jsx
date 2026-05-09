@@ -1,6 +1,6 @@
 import classes from "../css/WordsBoard.module.css"
 
-export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessedWords, shake}) {
+export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessedWords, guessedLetters, shake}) {
     const wordArray = word.split('');
 
     return (
