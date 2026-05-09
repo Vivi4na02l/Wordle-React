@@ -9,6 +9,8 @@ export default function Wordle() {
     const [nbrWordsGuessed, setNbrWordsGuessed] = useState(0);
     const [guessingWord, setGuessingWord] = useState([]);
     const [guessedWords, setGuessedWords] = useState([]);
+
+    const [shake,setShake] = useState(false);
     
     useEffect(() => {
         async function getWord() {
@@ -67,8 +69,17 @@ export default function Wordle() {
             setNbrWordsGuessed(nbrPrev => nbrPrev +1) //moves on to the next line
             setGuessingWord([]) //restarts the value that stores the word being currently written
         } else {
-            console.log("word doesn't exist");   
+            console.log("word doesn't exist");
+            triggerShake()
         }
+    }
+
+    function triggerShake() {
+        setShake(true);
+
+        setTimeout(() => {
+            setShake(false)
+        }, 500)
     }
 
     /**
@@ -102,7 +113,7 @@ export default function Wordle() {
 
     return (
         <main>
-            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords}/>
+            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} shake={shake}/>
             <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked}/>
         </main>
     )
