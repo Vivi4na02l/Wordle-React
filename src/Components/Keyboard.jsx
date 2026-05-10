@@ -1,7 +1,7 @@
 import classes from '../css/Keyboard.module.css'
 import deleteIcon from "../assets/delete.png";
 
-export default function Keyboard({letterClicked, deleteClicked, enterClicked, guessedCorrectLetters, guessedCorrectLettersAndPos}) {
+export default function Keyboard({letterClicked, deleteClicked, enterClicked, guessedLetters, guessedCorrectLetters, guessedCorrectLettersAndPos}) {
     const keyboardArray = [
         ["Q","W","E","R","T","Y","U","I","O","P"],
         ["A","S","D","F","G","H","J","K","L"],
@@ -28,6 +28,7 @@ export default function Keyboard({letterClicked, deleteClicked, enterClicked, gu
                     {/* LETTERS */}
                     {row.map((letter,i) => (
                         <div className={`${classes.key} ${classes.keyLetters}
+                                         ${guessedLetters.find(guessedL => guessedL == letter) ? classes.darkGrey : ''}
                                          ${guessedCorrectLetters.find(guessedL => guessedL == letter) ? classes.yellow : ''}
                                          ${guessedCorrectLettersAndPos.find(guessedL => guessedL == letter) ? classes.green : ''}`} key={i}
                              onClick={() => letterClicked(letter)}>

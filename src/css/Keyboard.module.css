@@ -26,6 +26,14 @@
     background-color: #5a5a5a;
 }
 
+.darkGrey {
+    background-color: #3e3e3e;
+}
+
+.darkGrey:hover {
+    background-color: #2c2c2c;
+}
+
 .green {
   background-color: #27ca11;
 }

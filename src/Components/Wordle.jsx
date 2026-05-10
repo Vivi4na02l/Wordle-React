@@ -126,6 +126,8 @@ export default function Wordle() {
                         setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
                     }
                 }
+            } else {
+                setGuessedLetters(prev => [...prev, letterGuessingWord])
             }
         }
     }
@@ -174,7 +176,7 @@ export default function Wordle() {
     return (
         <main>
             <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
-            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
+            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
         </main>
     )
 }
