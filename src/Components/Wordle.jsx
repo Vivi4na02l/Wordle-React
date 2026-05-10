@@ -1,9 +1,12 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './Navbar.jsx'
 import WordsBoard from './WordsBroad.jsx'
 import Keyboard from'./Keyboard.jsx'
 
 export default function Wordle() {
+    const [gameCategory, setGameCategory] = useState("animals");
+    const [gameLength, setGameLength] = useState("5");
+
     const [randomWord, setRandomWord] = useState("");
     const [wordLength, setWordLength] = useState(4);
     
@@ -22,11 +25,10 @@ export default function Wordle() {
     
     useEffect(() => {
         async function getWord() {
-            const randomLength = Math.floor(Math.random() * 3)+4;
-            setWordLength(randomLength)
-            setGuessedPos(Array(5).fill(null).map(() => Array(randomLength).fill(0)));
+            setWordLength(gameLength)
+            setGuessedPos(Array(5).fill(null).map(() => Array(gameLength).fill(0)));
             
-            const response = await fetch(`https://random-words-api.kushcreates.com/api?words=1&language=en&category=animals&length=${randomLength}`);
+            const response = await fetch(`https://random-words-api.kushcreates.com/api?words=1&language=en&category=${gameCategory}&length=${gameLength}`);
 
             const data = await response.json();
             setRandomWord((data[0].word).toUpperCase());
@@ -35,7 +37,7 @@ export default function Wordle() {
         }
 
         getWord();
-    }, [])
+    }, [gameCategory, gameLength])
 
     /**
      * adds letters clicked to the word being written in the "board"
@@ -183,7 +185,7 @@ export default function Wordle() {
 
     return (
         <>
-            <Navbar />
+            <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength}/>
             <main>
                 <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
                 <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>

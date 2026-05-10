@@ -8,8 +8,8 @@ export default function Keyboard({letterClicked, deleteClicked, enterClicked, gu
         ["Z","X","C","V","B","N","M"]
     ]
 
-    console.log(guessedCorrectLetters);
-    console.log(guessedCorrectLettersAndPos);
+    // console.log(guessedCorrectLetters);
+    // console.log(guessedCorrectLettersAndPos);
     
 
     return (
