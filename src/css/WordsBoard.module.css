@@ -26,10 +26,12 @@
 }
 
 .green {
+  border-color: #27ca11;
   background-color: #27ca11;
 }
 
 .yellow {
+  border-color: #cabe11;
   background-color: #cabe11;
 }
 
