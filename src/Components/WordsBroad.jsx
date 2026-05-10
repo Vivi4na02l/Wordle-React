@@ -5,7 +5,7 @@ export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessed
 
     return (
         <section className={classes.sectionWords}>
-            {[...Array(5)].map((_, rowIndex) => (
+            {[...Array(5)].map((var_not_used, rowIndex) => (
                 <div className={`
                                 ${classes.row}
                                 ${shake && rowIndex == nbrWordsGuessed? classes.shake : ""}`} key={rowIndex}>

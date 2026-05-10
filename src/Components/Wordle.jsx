@@ -101,21 +101,13 @@ export default function Wordle() {
                         return newGuessedPos
                     })
 
+                    // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
+                    if (guessedCorrectLetters.includes(letterGuessingWord)) {
+                        guessedCorrectLetters(prev =>
+                            prev.filter((var_not_used, index) => index != guessedCorrectLetters.findIndex(letterGuessingWord))
+                        )
+                    }
                     setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
-                    
-
-                    // const letterObject = {
-                    //     letter: letterGuessingWord,
-                    //     color: "green"
-                    // }
-
-                    // setGuessedLetters(prevGuessedLetters => {
-                    //     const newGuessedLetters = [...prevGuessedLetters]
-
-                    //     newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
-
-                    //     return newGuessedLetters
-                    // })
 
                 // if they are in different positions
                 } else {
@@ -129,20 +121,10 @@ export default function Wordle() {
                         return newGuessedPos
                     })
                     
-                    setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
-
-                    // const letterObject = {
-                    //     letter: letterGuessingWord,
-                    //     color: 'yellow'
-                    // }
-
-                    // setGuessedLetters(prevGuessedLetters => {
-                    //     const newGuessedLetters = [...prevGuessedLetters]
-
-                    //     newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
-
-                    //     return newGuessedLetters
-                    // })
+                    // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
+                    if (!guessedCorrectLettersAndPos.includes(letterGuessingWord)) {
+                        setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
+                    }
                 }
             }
         }
