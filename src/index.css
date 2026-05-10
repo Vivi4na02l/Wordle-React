@@ -5,13 +5,13 @@ body {
     overflow-y: hidden;
 }
 
-p {
+body, p {
     margin: 0;
     padding: 0;
 }
 
 main {
-    height: 100vh;
+    height: 95vh;
 
     display: flex;
     flex-direction: column;

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import Navbar from './Navbar.jsx'
 import WordsBoard from './WordsBroad.jsx'
 import Keyboard from'./Keyboard.jsx'
 
@@ -181,9 +182,12 @@ export default function Wordle() {
     }
 
     return (
-        <main>
-            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
-            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
-        </main>
+        <>
+            <Navbar />
+            <main>
+                <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
+                <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
+            </main>
+        </>
     )
 }
