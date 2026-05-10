@@ -21,7 +21,7 @@ export default function Wordle() {
         async function getWord() {
             const randomLength = Math.floor(Math.random() * 3)+4;
             setWordLength(randomLength)
-            setGuessedPos(Array(5).fill(null).map(() => Array(wordLength).fill(0)));
+            setGuessedPos(Array(5).fill(null).map(() => Array(randomLength).fill(0)));
             
             const response = await fetch(`https://random-words-api.kushcreates.com/api?words=1&language=en&category=animals&length=${randomLength}`);
 
@@ -39,14 +39,11 @@ export default function Wordle() {
      * @param {*} letter 
      */
     function letterClicked(letter) {
-        console.log(letter);
-        
         if (guessingWord.length < wordLength) {
             setGuessingWord(prevGuessingWord => [...prevGuessingWord, letter]) //pushes letter clicked to the array
         }
         
-        console.log(guessingWord);
-        
+        // console.log(guessingWord);
     }
 
     /**
@@ -69,7 +66,7 @@ export default function Wordle() {
         const exists = await doesGuessedWordExist(guessedWord);
 
         if (exists == true) {
-            console.log("word exists");
+            // console.log("word exists");
 
             validateGuessedWord();
 
@@ -77,13 +74,13 @@ export default function Wordle() {
             setNbrWordsGuessed(nbrPrev => nbrPrev +1) //moves on to the next line
             setGuessingWord([]) //restarts the value that stores the word being currently written
         } else {
-            console.log("word doesn't exist");
+            // console.log("word doesn't exist");
             triggerShake()
         }
     }
 
     function validateGuessedWord() {
-        const lettersChosenWord = randomWord.split('')
+        const lettersChosenWord = randomWord.toUpperCase().split('')
         for (const letterGuessingWord of guessingWord) {
 
             // if a letter of guessing word exists within the chosen word
@@ -103,8 +100,8 @@ export default function Wordle() {
 
                     // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
                     if (guessedCorrectLetters.includes(letterGuessingWord)) {
-                        guessedCorrectLetters(prev =>
-                            prev.filter((var_not_used, index) => index != guessedCorrectLetters.findIndex(letterGuessingWord))
+                        setGuessedCorrectLetters(prev =>
+                            prev.filter(letter => letter != letterGuessingWord)
                         )
                     }
                     setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
@@ -131,10 +128,6 @@ export default function Wordle() {
             }
         }
     }
-
-    useEffect(() => {
-                        console.log(guessedPos);
-                    }, [guessedPos])
 
     function triggerShake() {
         setShake(true);
