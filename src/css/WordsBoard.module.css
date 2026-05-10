@@ -25,6 +25,14 @@
     border: solid 0.1rem #6d6d6d;
 }
 
+.green {
+  background-color: #27ca11;
+}
+
+.yellow {
+  background-color: #cabe11;
+}
+
 .shake {
   animation: shake 0.5s;
 }

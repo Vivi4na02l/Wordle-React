@@ -10,7 +10,8 @@ export default function Wordle() {
     const [guessingWord, setGuessingWord] = useState([]);
     const [guessedWords, setGuessedWords] = useState([]);
 
-    const [guessedLetters, setGuessedLetters] = useState([[],[],[],[],[],[]]);
+    const [guessedLetters, setGuessedLetters] = useState([]);
+    const [guessedPos, setGuessedPos] = useState([]);
 
     const [shake,setShake] = useState(false);
     
@@ -18,11 +19,12 @@ export default function Wordle() {
         async function getWord() {
             const randomLength = Math.floor(Math.random() * 3)+4;
             setWordLength(randomLength)
-
+            setGuessedPos(Array(5).fill(null).map(() => Array(wordLength).fill(0)));
+            
             const response = await fetch(`https://random-words-api.kushcreates.com/api?words=1&language=en&category=animals&length=${randomLength}`);
 
             const data = await response.json();
-            setRandomWord(data[0].word);
+            setRandomWord((data[0].word).toUpperCase());
 
             console.log(data);        
         }
@@ -57,7 +59,7 @@ export default function Wordle() {
     }
 
     /**
-     * checks if the word written exists (!) and if it does, saves it and moves user to the next line to write more words
+     * checks if the word written exists and if it does, saves it and moves user to the next line to write more words
      */
     async function enterClicked() {
         const guessedWord = guessingWord.join("");
@@ -87,37 +89,67 @@ export default function Wordle() {
 
                 // if both of the letters are in the same position
                 if (lettersChosenWord.findIndex((letter => letter == letterGuessingWord)) == guessingWord.findIndex((letter => letter == letterGuessingWord))) {
-                    const letterObject = {
-                        letter: letterGuessingWord,
-                        color: "#27ca11"
-                    }
+                    const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
+                    setGuessedPos(prev => {
+                        const newGuessedPos = [...prev];
 
-                    setGuessedLetters(prevGuessedLetters => {
-                        const newGuessedLetters = [...prevGuessedLetters]
+                        newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+                        newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 2
 
-                        newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
-
-                        return newGuessedLetters
+                        return newGuessedPos
                     })
+
+                    console.log('oi2');
+                    
+
+                    // const letterObject = {
+                    //     letter: letterGuessingWord,
+                    //     color: "#27ca11"
+                    // }
+
+                    // setGuessedLetters(prevGuessedLetters => {
+                    //     const newGuessedLetters = [...prevGuessedLetters]
+
+                    //     newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
+
+                    //     return newGuessedLetters
+                    // })
 
                 // if they are in different positions
                 } else {
-                    const letterObject = {
-                        letter: letterGuessingWord,
-                        color: "#cabe11"
-                    }
+                    const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
+                    setGuessedPos(prev => {
+                        const newGuessedPos = [...prev];
 
-                    setGuessedLetters(prevGuessedLetters => {
-                        const newGuessedLetters = [...prevGuessedLetters]
+                        newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+                        newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 1
 
-                        newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
-
-                        return newGuessedLetters
+                        return newGuessedPos
                     })
+
+                    console.log('oi');
+                    
+                    
+                    // const letterObject = {
+                    //     letter: letterGuessingWord,
+                    //     color: "#cabe11"
+                    // }
+
+                    // setGuessedLetters(prevGuessedLetters => {
+                    //     const newGuessedLetters = [...prevGuessedLetters]
+
+                    //     newGuessedLetters[nbrWordsGuessed] = [...newGuessedLetters[nbrWordsGuessed], letterObject]
+
+                    //     return newGuessedLetters
+                    // })
                 }
             }
         }
     }
+
+    useEffect(() => {
+                        console.log(guessedPos);
+                    }, [guessedPos])
 
     function triggerShake() {
         setShake(true);
@@ -158,7 +190,7 @@ export default function Wordle() {
 
     return (
         <main>
-            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedLetters={guessedLetters} shake={shake}/>
+            <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
             <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked}/>
         </main>
     )
