@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import WordsBoard from './WordsBroad.jsx'
 import Keyboard from'./Keyboard.jsx'
 
@@ -16,6 +16,8 @@ export default function Wordle() {
     const [guessedPos, setGuessedPos] = useState([]);
 
     const [shake,setShake] = useState(false);
+
+    const [gameOver, setGameOver] = useState(false);
     
     useEffect(() => {
         async function getWord() {
@@ -39,7 +41,7 @@ export default function Wordle() {
      * @param {*} letter 
      */
     function letterClicked(letter) {
-        if (guessingWord.length < wordLength) {
+        if (guessingWord.length < wordLength && !gameOver) {
             setGuessingWord(prevGuessingWord => [...prevGuessingWord, letter]) //pushes letter clicked to the array
         }
         
@@ -61,6 +63,10 @@ export default function Wordle() {
      * checks if the word written exists and if it does, saves it and moves user to the next line to write more words
      */
     async function enterClicked() {
+        if (gameOver) {
+            return
+        }
+
         const guessedWord = guessingWord.join("");
 
         const exists = await doesGuessedWordExist(guessedWord);
@@ -80,6 +86,14 @@ export default function Wordle() {
     }
 
     function validateGuessedWord() {
+        const wordGuessed = guessingWord.join("").toUpperCase();
+        
+        if (randomWord == wordGuessed) {
+            // User wins, they guessed the word
+            console.log("User wins!");
+            setGameOver(true);
+        }
+
         const lettersChosenWord = randomWord.toUpperCase().split('')
         for (const letterGuessingWord of guessingWord) {
 
