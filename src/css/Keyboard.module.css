@@ -26,6 +26,22 @@
     background-color: #5a5a5a;
 }
 
+.green {
+  background-color: #27ca11;
+}
+
+.green:hover {
+  background-color: #20b10c;
+}
+
+.yellow {
+  background-color: #cabe11;
+}
+
+.yellow:hover {
+    background-color: #b7ac09;
+}
+
 @media screen and (max-width: 390px) {
     .keyLetters {
         width: 2rem;

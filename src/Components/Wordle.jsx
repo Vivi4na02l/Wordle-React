@@ -11,6 +11,8 @@ export default function Wordle() {
     const [guessedWords, setGuessedWords] = useState([]);
 
     const [guessedLetters, setGuessedLetters] = useState([]);
+    const [guessedCorrectLetters, setGuessedCorrectLetters] = useState([]);
+    const [guessedCorrectLettersAndPos, setGuessedCorrectLettersAndPos] = useState([]);
     const [guessedPos, setGuessedPos] = useState([]);
 
     const [shake,setShake] = useState(false);
@@ -99,12 +101,12 @@ export default function Wordle() {
                         return newGuessedPos
                     })
 
-                    console.log('oi2');
+                    setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
                     
 
                     // const letterObject = {
                     //     letter: letterGuessingWord,
-                    //     color: "#27ca11"
+                    //     color: "green"
                     // }
 
                     // setGuessedLetters(prevGuessedLetters => {
@@ -126,13 +128,12 @@ export default function Wordle() {
 
                         return newGuessedPos
                     })
+                    
+                    setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
 
-                    console.log('oi');
-                    
-                    
                     // const letterObject = {
                     //     letter: letterGuessingWord,
-                    //     color: "#cabe11"
+                    //     color: 'yellow'
                     // }
 
                     // setGuessedLetters(prevGuessedLetters => {
@@ -191,7 +192,7 @@ export default function Wordle() {
     return (
         <main>
             <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
-            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked}/>
+            <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
         </main>
     )
 }
