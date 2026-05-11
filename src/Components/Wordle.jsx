@@ -9,15 +9,15 @@ export default function Wordle() {
     const [modeChanged, setModeChanged] = useState(0);
 
     const [randomWord, setRandomWord] = useState("");
-    const [wordLength, setWordLength] = useState(4);
+    const [wordLength, setWordLength] = useState(5);
     
     const [nbrWordsGuessed, setNbrWordsGuessed] = useState(0);
-    const [guessingWord, setGuessingWord] = useState([]);
-    const [guessedWords, setGuessedWords] = useState([]);
+    const [guessingWord, setGuessingWord] = useState([]); //memorizes each letter added of the word that is currently being written, before hitting "enter"
+    const [guessedWords, setGuessedWords] = useState([]); //memorizes words written
 
-    const [guessedLetters, setGuessedLetters] = useState([]);
-    const [guessedCorrectLetters, setGuessedCorrectLetters] = useState([]);
-    const [guessedCorrectLettersAndPos, setGuessedCorrectLettersAndPos] = useState([]);
+    const [guessedLetters, setGuessedLetters] = useState([]); //memorizes the letters of words already written (after hitting "enter") that have no corelation to the correct word
+    const [guessedCorrectLetters, setGuessedCorrectLetters] = useState([]); //memorizes the letters of words already written that are also used in the correct word
+    const [guessedCorrectLettersAndPos, setGuessedCorrectLettersAndPos] = useState([]); //memorizes the letters of words already written that are also used in the correct word and are simultaneously in the correct position
     const [guessedPos, setGuessedPos] = useState([]);
 
     const [shake,setShake] = useState(false);
@@ -26,6 +26,13 @@ export default function Wordle() {
     
     useEffect(() => {
         async function getWord() {
+            setNbrWordsGuessed(0);
+            setGuessedWords([]);
+            setGuessedLetters([]);
+            setGuessedCorrectLetters([]);
+            setGuessedCorrectLettersAndPos([]);
+            setGuessedPos([]);
+
             setWordLength(gameLength)
             setGuessedPos(Array(5).fill(null).map(() => Array(gameLength).fill(0)));
             
