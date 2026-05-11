@@ -1,0 +1,96 @@
+.overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+    
+    background-color: rgba(0, 0, 0, 0.457);
+}
+
+.visible {
+    display: flex;
+}
+
+.hidden {
+    display: none;
+}
+
+.overlay dialog {
+    padding: 1.5rem;
+
+    border: none;
+    border-radius: 0.5rem;
+
+    color: #fff;
+    background-color: #666666;
+}
+
+.overlay h2 {
+    border-bottom: solid #9f9f9f 0.1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.overlay p {
+    padding-bottom: 1.5rem;
+    border-bottom: solid #9f9f9f 0.1rem;
+}
+
+.overlay footer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.overlay button {
+    border-radius: 0.5rem;
+
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+    color: white;
+}
+
+.btnRestart {
+    border: none;
+    background-color: #27ca11;
+}
+
+.btnRestart:hover {
+    cursor: pointer;
+    background-color: #20b10c;
+}
+
+.btnCancel {
+    border: solid 0.1rem #9f9f9f;
+    background-color: transparent;
+}
+
+.btnCancel:hover {
+    cursor: pointer;
+    background-color: #ffffff29;
+}
+
+@media screen and (max-width: 280px) {
+    .overlay h2 {
+        font-size: 1.5rem;
+    }
+
+    .overlay * {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (min-width: 281px) {
+    .overlay h2 {
+        font-size: 2rem;
+    }
+
+    .overlay * {
+        font-size: 1.2rem;
+    }
+}

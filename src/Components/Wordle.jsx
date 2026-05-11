@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import GameOver from './GameOver.jsx'
 import Navbar from './Navbar.jsx'
 import WordsBoard from './WordsBroad.jsx'
 import Keyboard from'./Keyboard.jsx'
@@ -23,6 +24,7 @@ export default function Wordle() {
     const [shake,setShake] = useState(false);
 
     const [gameOver, setGameOver] = useState(false);
+    const [userWon, setUserWon] = useState(false)
     
     useEffect(() => {
         async function getWord() {
@@ -102,6 +104,7 @@ export default function Wordle() {
         if (randomWord == wordGuessed) {
             // User wins, they guessed the word
             console.log("User wins!");
+            setUserWon(true);
             setGameOver(true);
         }
 
@@ -193,6 +196,7 @@ export default function Wordle() {
 
     return (
         <>
+            <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} />
             <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength} modeChanged={modeChanged} setModeChanged={setModeChanged}/>
             <main>
                 <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
