@@ -1,15 +1,30 @@
 import classes from '../css/Navbar.module.css'
-// import { useState } from 'react';
 
-export default function Navbar({gameCategory, setGameCategory, gameLength, setGameLength}) {
-    // const [category, setCategory] = useState("Animals");
-    // const [length, setLength] = useState("5");
+export default function Navbar({gameCategory, setGameCategory, gameLength, setGameLength, modeChanged, setModeChanged}) {
+
+    function gCategory(e) {
+        if (modeChanged >= 2) {
+            console.log("You must finish this game before making any other changes.");
+        } else {
+            setModeChanged((nbr) => nbr + 1);
+            setGameCategory(e.target.value)
+        }
+    }
+
+    function gLength(e) {
+        if (modeChanged >= 2) {
+            console.log("You must finish this game before making any other changes.");
+        } else {
+            setModeChanged((nbr) => nbr + 1);
+            setGameLength(e.target.value)
+        }
+    }
 
     return (
         <header className={classes.header}>
             <div>
                 <p>Category:</p>
-                <select value={gameCategory} onChange={(e) => setGameCategory(e.target.value)}>
+                <select value={gameCategory} onChange={(e) => gCategory(e)}>
                     <option value="Animals">Animals</option>
                     <option value="Birds">Birds</option>
                     <option value="Countries">Countries</option>
@@ -19,8 +34,8 @@ export default function Navbar({gameCategory, setGameCategory, gameLength, setGa
             </div>
 
             <div>
-                <p>Words:</p>
-                <select value={gameLength} onChange={(e) => setGameLength(e.target.value)}>
+                <p>Length:</p>
+                <select value={gameLength} onChange={(e) => gLength(e)}>
                     <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="6">6</option>

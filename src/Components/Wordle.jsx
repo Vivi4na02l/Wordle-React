@@ -6,6 +6,7 @@ import Keyboard from'./Keyboard.jsx'
 export default function Wordle() {
     const [gameCategory, setGameCategory] = useState("animals");
     const [gameLength, setGameLength] = useState("5");
+    const [modeChanged, setModeChanged] = useState(0);
 
     const [randomWord, setRandomWord] = useState("");
     const [wordLength, setWordLength] = useState(4);
@@ -185,7 +186,7 @@ export default function Wordle() {
 
     return (
         <>
-            <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength}/>
+            <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength} modeChanged={modeChanged} setModeChanged={setModeChanged}/>
             <main>
                 <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
                 <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
