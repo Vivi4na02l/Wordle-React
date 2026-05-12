@@ -28,7 +28,6 @@ export default function Navbar({gameCategory, setGameCategory, gameLength, setGa
                     <option value="Animals">Animals</option>
                     <option value="Birds">Birds</option>
                     <option value="Countries">Countries</option>
-                    <option value="Games">Games</option>
                     <option value="Sports">Sports</option>
                 </select>
             </div>

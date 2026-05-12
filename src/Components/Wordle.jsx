@@ -125,52 +125,136 @@ export default function Wordle() {
         }
 
         const lettersChosenWord = randomWord.toUpperCase().split('')
-        for (const letterGuessingWord of guessingWord) {
 
-            // if a letter of guessing word exists within the chosen word
-            if (lettersChosenWord.includes(letterGuessingWord)) {
+        for (let i = 0; i < lettersChosenWord.length; i++) {
+            // console.log("ciclo: "+i, lettersChosenWord, lettersChosenWord[i], guessingWord[i]);
+            
 
-                // if both of the letters are in the same position
-                if (lettersChosenWord.findIndex((letter => letter == letterGuessingWord)) == guessingWord.findIndex((letter => letter == letterGuessingWord))) {
-                    const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
-                    setGuessedPos(prev => {
-                        const newGuessedPos = [...prev];
+            // if both of the letters are the same and in the same position
+            if (lettersChosenWord[i] == guessingWord[i]) {
+                console.log("letras iguais");
+                
+                setGuessedPos(prev => {
+                    const newGuessedPos = [...prev];
 
-                        newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
-                        newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 2
+                    newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+                    newGuessedPos[nbrWordsGuessed][i] = 2 // what defines it as "green"
 
-                        return newGuessedPos
-                    })
+                    return newGuessedPos
+                })
 
-                    // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
-                    if (guessedCorrectLetters.includes(letterGuessingWord)) {
-                        setGuessedCorrectLetters(prev =>
-                            prev.filter(letter => letter != letterGuessingWord)
-                        )
-                    }
-                    setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
+                // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
+                if (guessedCorrectLetters.includes(guessingWord[i])) {
+                    setGuessedCorrectLetters(prev =>
+                        prev.filter(letter => letter != guessingWord[i])
+                    )
+                }
+                setGuessedCorrectLettersAndPos(prev => [...prev, guessingWord[i]])
+            }
 
-                // if they are in different positions
-                } else {
-                    const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
-                    setGuessedPos(prev => {
-                        const newGuessedPos = [...prev];
-
-                        newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
-                        newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 1
-
-                        return newGuessedPos
-                    })
+            // does not have the same letters in the same positions (but might still have letters in common in both words)
+            else {
+                if (lettersChosenWord.includes(guessingWord[i])) {
+                    console.log("letra existe");
                     
-                    // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
-                    if (!guessedCorrectLettersAndPos.includes(letterGuessingWord)) {
-                        setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
+                    const amountOfLetterInChosen = lettersChosenWord.filter(letter => letter == guessingWord[i])
+                    const amountOfLetterInGuessed = guessingWord.filter(letter => letter == guessingWord[i])
+                    
+                    let sameLetterAndPos = 0
+                    for (let j = 0; j < lettersChosenWord.length; j++) {
+                        if (lettersChosenWord[j] == guessingWord[j]) {
+                            console.log("ciclo: "+j, lettersChosenWord, lettersChosenWord[j], guessingWord[j], sameLetterAndPos);
+                            sameLetterAndPos++
+                        }
+                    }
+
+                    console.log(sameLetterAndPos);
+                    
+
+                    // if the same letter appears more times in guessed word than the correct one AND the letter doesn't have a match position with the same letter in the chosen word
+                    if (amountOfLetterInGuessed > amountOfLetterInChosen) { //&& !guessedCorrectLettersAndPos.includes(guessingWord[i])
+                        if (sameLetterAndPos == 0) {
+                            const posLetterGuessedWord = guessingWord.findIndex((letter => letter == guessingWord[i]));
+                            setGuessedPos(prev => {
+                                const newGuessedPos = [...prev];
+    
+                                newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+                                newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 1 // what defines it as "yellow"
+    
+                                return newGuessedPos
+                            })
+                            
+                            // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
+                            // if (!guessedCorrectLettersAndPos.includes(guessingWord[i])) {
+                                setGuessedCorrectLetters(prev => [...prev, guessingWord[i]])
+                            // }
+                        }
+
+                    } else {
+                        setGuessedPos(prev => {
+                            const newGuessedPos = [...prev];
+
+                            newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+                            newGuessedPos[nbrWordsGuessed][i] = 1 // what defines it as "yellow"
+
+                            return newGuessedPos
+                        })
                     }
                 }
-            } else {
-                setGuessedLetters(prev => [...prev, letterGuessingWord])
+
+                // the letter of guessed word does not exist in the chosen word at all
+                else {
+                    setGuessedLetters(prev => [...prev, guessingWord[i]])
+                }
             }
         }
+
+        // for (const letterGuessingWord of guessingWord) {
+
+        //     // if a letter of guessing word exists within the chosen word
+        //     if (lettersChosenWord.includes(letterGuessingWord)) {
+
+        //         // if both of the letters are in the same position
+        //         if (lettersChosenWord.findIndex((letter => letter == letterGuessingWord)) == guessingWord.findIndex((letter => letter == letterGuessingWord))) {
+        //             const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
+        //             setGuessedPos(prev => {
+        //                 const newGuessedPos = [...prev];
+
+        //                 newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+        //                 newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 2
+
+        //                 return newGuessedPos
+        //             })
+
+        //             // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
+        //             if (guessedCorrectLetters.includes(letterGuessingWord)) {
+        //                 setGuessedCorrectLetters(prev =>
+        //                     prev.filter(letter => letter != letterGuessingWord)
+        //                 )
+        //             }
+        //             setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
+
+        //         // if they are in different positions
+        //         } else {
+        //             const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
+        //             setGuessedPos(prev => {
+        //                 const newGuessedPos = [...prev];
+
+        //                 newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
+        //                 newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 1
+
+        //                 return newGuessedPos
+        //             })
+                    
+        //             // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
+        //             if (!guessedCorrectLettersAndPos.includes(letterGuessingWord)) {
+        //                 setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
+        //             }
+        //         }
+        //     } else {
+        //         setGuessedLetters(prev => [...prev, letterGuessingWord])
+        //     }
+        // }
     }
 
     function triggerShake() {
