@@ -114,9 +114,7 @@ export default function Wordle() {
             console.log("User wins!");
             setUserWon(true);
             setGameOver(true);
-        }
-        
-        if (nbrWordsGuessed >= 4) {
+        } else if (nbrWordsGuessed >= 4) {
             // User lost, ran out of tries
             console.log("User lost.");
             setUserWon(false);
