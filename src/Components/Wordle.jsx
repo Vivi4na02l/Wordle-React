@@ -92,9 +92,8 @@ export default function Wordle() {
 
         const exists = await doesGuessedWordExist(guessedWord);
 
-        if (exists == true) {
+        if (exists == true && guessedWord.length == gameLength) {
             // console.log("word exists");
-
             validateGuessedWord();
 
             setGuessedWords(prevGuessedWords => [...prevGuessedWords, guessedWord]) //pushes guessedWord to the array
@@ -126,8 +125,7 @@ export default function Wordle() {
 
         for (let i = 0; i < lettersChosenWord.length; i++) {
             // console.log("ciclo: "+i, lettersChosenWord, lettersChosenWord[i], guessingWord[i]);
-            
-
+        
             // if both of the letters are the same and in the same position
             if (lettersChosenWord[i] == guessingWord[i]) {
                 console.log("letras iguais");
