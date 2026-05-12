@@ -115,6 +115,14 @@ export default function Wordle() {
             setUserWon(true);
             setGameOver(true);
         }
+        
+        if (nbrWordsGuessed >= 4) {
+            // User lost, ran out of tries
+            console.log("User lost.");
+            setUserWon(false);
+            setGameOver(true);
+            return
+        }
 
         const lettersChosenWord = randomWord.toUpperCase().split('')
         for (const letterGuessingWord of guessingWord) {
