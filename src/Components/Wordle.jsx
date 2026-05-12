@@ -24,16 +24,24 @@ export default function Wordle() {
     const [shake,setShake] = useState(false);
 
     const [gameOver, setGameOver] = useState(false);
-    const [userWon, setUserWon] = useState(false)
+    const [userWon, setUserWon] = useState(false);
+    const [restartClicked, setRestartClicked] = useState(0);
+
+    function clearGame() {
+        setGuessingWord([]);
+        setNbrWordsGuessed(0);
+        setGuessedWords([]);
+        setGuessedLetters([]);
+        setGuessedCorrectLetters([]);
+        setGuessedCorrectLettersAndPos([]);
+        setGuessedPos([]);
+        setGameOver(false);
+        setUserWon(false);
+    }
     
     useEffect(() => {
         async function getWord() {
-            setNbrWordsGuessed(0);
-            setGuessedWords([]);
-            setGuessedLetters([]);
-            setGuessedCorrectLetters([]);
-            setGuessedCorrectLettersAndPos([]);
-            setGuessedPos([]);
+            clearGame();
 
             setWordLength(gameLength)
             setGuessedPos(Array(5).fill(null).map(() => Array(gameLength).fill(0)));
@@ -47,7 +55,7 @@ export default function Wordle() {
         }
 
         getWord();
-    }, [gameCategory, gameLength])
+    }, [gameCategory, gameLength, restartClicked])
 
     /**
      * adds letters clicked to the word being written in the "board"
@@ -196,7 +204,7 @@ export default function Wordle() {
 
     return (
         <>
-            <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} />
+            <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} restartClicked={restartClicked} setRestartClicked={setRestartClicked}/>
             <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength} modeChanged={modeChanged} setModeChanged={setModeChanged}/>
             <main>
                 <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>

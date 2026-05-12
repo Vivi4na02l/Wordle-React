@@ -1,6 +1,6 @@
 import classes from '../css/GameOver.module.css'
 
-export default function GameOver({randomWord, gameOver, userWon}) {
+export default function GameOver({randomWord, gameOver, userWon, setRestartClicked}) {
     function title() {
         if (userWon) {
             return "You win!"
@@ -24,7 +24,7 @@ export default function GameOver({randomWord, gameOver, userWon}) {
                 <p>{message()}</p>
 
                 <footer>
-                    <button className={classes.btnRestart}>Restart</button>
+                    <button className={classes.btnRestart} onClick={() => setRestartClicked(prev => prev+1)}>Restart</button>
                     <button className={classes.btnCancel}>Cancel</button>
                 </footer>
             </dialog>

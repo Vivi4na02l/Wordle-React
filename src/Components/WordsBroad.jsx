@@ -11,8 +11,8 @@ export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessed
                                 ${shake && rowIndex == nbrWordsGuessed? classes.shake : ""}`} key={rowIndex}>
                     {wordArray.map((letter, letterIndex) => (
                         <div className={`${classes.letter}
-                                         ${guessedPos[rowIndex][letterIndex] == 1 ? classes.yellow : ""}
-                                         ${guessedPos[rowIndex][letterIndex] == 2 ? classes.green : ""}`} key={letterIndex}>
+                                         ${guessedPos?.[rowIndex]?.[letterIndex] == 1 ? classes.yellow : ""}
+                                         ${guessedPos?.[rowIndex]?.[letterIndex] == 2 ? classes.green : ""}`} key={letterIndex}>
                             {guessedWords.length != 0 && rowIndex <= guessedWords.length-1 ? (
                                 <p>{guessedWords[rowIndex][letterIndex]}</p>
                             ) : guessingWord.length != 0 && rowIndex == nbrWordsGuessed && (
