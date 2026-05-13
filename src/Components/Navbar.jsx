@@ -55,7 +55,8 @@ export default function Navbar({gameCategory, setGameCategory, gameLength, setGa
                 </div>
             </header>
 
-            <dialog className={classes.alert} open={isAlertOn}>
+            <dialog className={`${classes.alert}
+                                ${isAlertOn ? classes.moveVertically : ""}`} open={isAlertOn}>
                 <p>To make more changes to the word, you must complete this game.</p>
             </dialog>
         </>

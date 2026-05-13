@@ -23,7 +23,7 @@
 
 .alert {
     position: absolute;
-    bottom: 10vh;
+    top: 110vh;
 
     border: none;
     border-radius: 0.6rem;
@@ -31,6 +31,32 @@
 
     color: #fff;
     background-color: rgb(146, 38, 38);
+}
+
+.moveVertically {
+  animation: moveVertically 3s;
+}
+
+@keyframes moveVertically {
+  0% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-20vh);
+  }
+
+  50% {
+    transform: translateY(-20vh);
+  }
+
+  75% {
+    transform: translateY(-20vh);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 @media screen and (max-width: 280px) {
