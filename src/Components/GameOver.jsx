@@ -18,16 +18,22 @@ export default function GameOver({randomWord, gameOver, userWon, setRestartClick
     }
 
     return(
-        <div className={`${classes.overlay} ${gameOver ? classes.visible : classes.hidden}`}>
-            <dialog open>
-                <h2>{title()}</h2>
-                <p>{message()}</p>
+        <>
+            <div className={`${classes.overlay} ${gameOver ? classes.visible : classes.hidden}`}>
+                <dialog open>
+                    <h2>{title()}</h2>
+                    <p>{message()}</p>
 
-                <footer>
-                    <button className={classes.btnRestart} onClick={() => setRestartClicked(prev => prev+1)}>Restart</button>
-                    <button className={classes.btnCancel}>Cancel</button>
-                </footer>
+                    <footer>
+                        <button className={classes.btnRestart} onClick={() => setRestartClicked(prev => prev+1)}>Restart</button>
+                        <button className={classes.btnCancel}>Cancel</button>
+                    </footer>
+                </dialog>
+            </div>
+
+            <dialog className={classes.alert} open>
+                <p>To make more changes to the word, you must complete this game.</p>
             </dialog>
-        </div>
+        </>
     )
 }
