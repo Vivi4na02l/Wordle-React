@@ -21,6 +21,18 @@
     background-color: rgb(227, 227, 227);
 }
 
+.alert {
+    position: absolute;
+    bottom: 10vh;
+
+    border: none;
+    border-radius: 0.6rem;
+    padding: 1rem;
+
+    color: #fff;
+    background-color: rgb(146, 38, 38);
+}
+
 @media screen and (max-width: 280px) {
     .header {
         font-size: 1.2rem;
@@ -28,6 +40,10 @@
 
     .header select {
         font-size: 0.8rem;
+    }
+
+    .alert {
+        font-size: 1rem;
     }
 }
 
@@ -38,5 +54,9 @@
     
     .header select {
         font-size: 1rem;
+    }
+
+    .alert {
+        font-size: 1.2rem;
     }
 }

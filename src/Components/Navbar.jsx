@@ -21,25 +21,31 @@ export default function Navbar({gameCategory, setGameCategory, gameLength, setGa
     }
 
     return (
-        <header className={classes.header}>
-            <div>
-                <p>Category:</p>
-                <select value={gameCategory} onChange={(e) => gCategory(e)}>
-                    <option value="Animals">Animals</option>
-                    <option value="Birds">Birds</option>
-                    <option value="Countries">Countries</option>
-                    <option value="Sports">Sports</option>
-                </select>
-            </div>
+        <>
+            <header className={classes.header}>
+                <div>
+                    <p>Category:</p>
+                    <select value={gameCategory} onChange={(e) => gCategory(e)}>
+                        <option value="Animals">Animals</option>
+                        <option value="Birds">Birds</option>
+                        <option value="Countries">Countries</option>
+                        <option value="Sports">Sports</option>
+                    </select>
+                </div>
 
-            <div>
-                <p>Length:</p>
-                <select value={gameLength} onChange={(e) => gLength(e)}>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-            </div>
-        </header>
+                <div>
+                    <p>Length:</p>
+                    <select value={gameLength} onChange={(e) => gLength(e)}>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+            </header>
+
+            <dialog className={classes.alert} open>
+                <p>To make more changes to the word, you must complete this game.</p>
+            </dialog>
+        </>
     )
 }
