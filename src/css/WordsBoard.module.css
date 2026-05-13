@@ -65,6 +65,20 @@
   }
 }
 
+.flip {
+  animation: flip 1.5s;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateX(0);
+  }
+
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+
 @media screen and (max-width: 390px) {
     .letter {
         width: 3.5rem;

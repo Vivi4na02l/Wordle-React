@@ -1,6 +1,6 @@
 import classes from "../css/WordsBoard.module.css"
 
-export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessedWords, guessedPos, shake}) {
+export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessedWords, guessedPos, shake, flip}) {
     const wordArray = word.split('');
 
     return (
@@ -8,7 +8,8 @@ export default function WordsBoard({word, nbrWordsGuessed, guessingWord, guessed
             {[...Array(5)].map((var_not_used, rowIndex) => (
                 <div className={`
                                 ${classes.row}
-                                ${shake && rowIndex == nbrWordsGuessed? classes.shake : ""}`} key={rowIndex}>
+                                ${shake && rowIndex == nbrWordsGuessed? classes.shake : ""}
+                                ${flip && rowIndex == nbrWordsGuessed-1? classes.flip : ""}`} key={rowIndex}>
                     {wordArray.map((letter, letterIndex) => (
                         <div className={`${classes.letter}
                                          ${guessedPos?.[rowIndex]?.[letterIndex] == 1 ? classes.yellow : ""}

@@ -22,6 +22,7 @@ export default function Wordle() {
     const [guessedPos, setGuessedPos] = useState([]);
 
     const [shake,setShake] = useState(false);
+    const [flip,setFlip] = useState(false);
 
     const [gameOver, setGameOver] = useState(false);
     const [userWon, setUserWon] = useState(false);
@@ -95,6 +96,7 @@ export default function Wordle() {
         if (exists == true && guessedWord.length == gameLength) {
             // console.log("word exists");
             validateGuessedWord();
+            triggerFlip();
 
             setGuessedWords(prevGuessedWords => [...prevGuessedWords, guessedWord]) //pushes guessedWord to the array
             setNbrWordsGuessed(nbrPrev => nbrPrev +1) //moves on to the next line
@@ -204,53 +206,6 @@ export default function Wordle() {
                 }
             }
         }
-
-        // for (const letterGuessingWord of guessingWord) {
-
-        //     // if a letter of guessing word exists within the chosen word
-        //     if (lettersChosenWord.includes(letterGuessingWord)) {
-
-        //         // if both of the letters are in the same position
-        //         if (lettersChosenWord.findIndex((letter => letter == letterGuessingWord)) == guessingWord.findIndex((letter => letter == letterGuessingWord))) {
-        //             const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
-        //             setGuessedPos(prev => {
-        //                 const newGuessedPos = [...prev];
-
-        //                 newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
-        //                 newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 2
-
-        //                 return newGuessedPos
-        //             })
-
-        //             // if the letter was guessed correctly before, but in the wrong position, it is now removed from the array, since now it has been fully correctly guessed (letter+its position)
-        //             if (guessedCorrectLetters.includes(letterGuessingWord)) {
-        //                 setGuessedCorrectLetters(prev =>
-        //                     prev.filter(letter => letter != letterGuessingWord)
-        //                 )
-        //             }
-        //             setGuessedCorrectLettersAndPos(prev => [...prev, letterGuessingWord])
-
-        //         // if they are in different positions
-        //         } else {
-        //             const posLetterGuessedWord = guessingWord.findIndex((letter => letter == letterGuessingWord));
-        //             setGuessedPos(prev => {
-        //                 const newGuessedPos = [...prev];
-
-        //                 newGuessedPos[nbrWordsGuessed] = [...newGuessedPos[nbrWordsGuessed]]
-        //                 newGuessedPos[nbrWordsGuessed][posLetterGuessedWord] = 1
-
-        //                 return newGuessedPos
-        //             })
-                    
-        //             // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
-        //             if (!guessedCorrectLettersAndPos.includes(letterGuessingWord)) {
-        //                 setGuessedCorrectLetters(prev => [...prev, letterGuessingWord])
-        //             }
-        //         }
-        //     } else {
-        //         setGuessedLetters(prev => [...prev, letterGuessingWord])
-        //     }
-        // }
     }
 
     function triggerShake() {
@@ -259,6 +214,14 @@ export default function Wordle() {
         setTimeout(() => {
             setShake(false)
         }, 500)
+    }
+
+    function triggerFlip() {
+        setFlip(true);
+
+        setTimeout(() => {
+            setFlip(false)
+        }, 1500)
     }
 
     /**
@@ -295,7 +258,7 @@ export default function Wordle() {
             <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} restartClicked={restartClicked} setRestartClicked={setRestartClicked}/>
             <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength} modeChanged={modeChanged} setModeChanged={setModeChanged}/>
             <main>
-                <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake}/>
+                <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake} flip={flip}/>
                 <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
             </main>
         </>
