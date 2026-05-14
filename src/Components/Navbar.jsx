@@ -39,7 +39,6 @@ export default function Navbar({gameCategory, setGameCategory, gameLength, setGa
                     <p>Category:</p>
                     <select value={gameCategory} onChange={(e) => gCategory(e)}>
                         <option value="Animals">Animals</option>
-                        <option value="Birds">Birds</option>
                         <option value="Countries">Countries</option>
                         <option value="Sports">Sports</option>
                     </select>

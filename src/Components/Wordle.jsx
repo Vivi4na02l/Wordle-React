@@ -115,11 +115,13 @@ export default function Wordle() {
             console.log("User wins!");
             setUserWon(true);
             setGameOver(true);
+            setModeChanged(0);
         } else if (nbrWordsGuessed >= 4) {
             // User lost, ran out of tries
             console.log("User lost.");
             setUserWon(false);
             setGameOver(true);
+            setModeChanged(0);
             return
         }
 
@@ -130,7 +132,7 @@ export default function Wordle() {
         
             // if both of the letters are the same and in the same position
             if (lettersChosenWord[i] == guessingWord[i]) {
-                console.log("letras iguais");
+                // console.log("letras iguais");
                 
                 setGuessedPos(prev => {
                     const newGuessedPos = [...prev];
