@@ -166,7 +166,6 @@ export default function Wordle() {
             // does not have the same letters in the same positions (but might still have letters in common in both words)
             else {
                 if (lettersChosenWord.includes(guessingWord[i])) {
-                    console.log("letra existe");
                     
                     const amountOfLetterInChosen = lettersChosenWord.filter(letter => letter == guessingWord[i])
                     const amountOfLetterInGuessed = guessingWord.filter(letter => letter == guessingWord[i])
@@ -174,16 +173,15 @@ export default function Wordle() {
                     let sameLetterAndPos = 0
                     for (let j = 0; j < lettersChosenWord.length; j++) {
                         if (lettersChosenWord[j] == guessingWord[j]) {
-                            console.log("ciclo: "+j, lettersChosenWord, lettersChosenWord[j], guessingWord[j], sameLetterAndPos);
-                            sameLetterAndPos++
+                            if (guessingWord[j] == guessingWord[i]) {
+                                sameLetterAndPos++
+                            }
                         }
                     }
 
-                    console.log(sameLetterAndPos);
-                    
-
                     // if the same letter appears more times in guessed word than the correct one AND the letter doesn't have a match position with the same letter in the chosen word
                     if (amountOfLetterInGuessed > amountOfLetterInChosen) { //&& !guessedCorrectLettersAndPos.includes(guessingWord[i])
+                        
                         if (sameLetterAndPos == 0) {
                             const posLetterGuessedWord = guessingWord.findIndex((letter => letter == guessingWord[i]));
                             setGuessedPos(prev => {
@@ -196,9 +194,9 @@ export default function Wordle() {
                             })
                             
                             // if letter and its position has already been guessed correctly, it doesn't change the letter in the keyboard back to yellow, staying green
-                            // if (!guessedCorrectLettersAndPos.includes(guessingWord[i])) {
+                            if (!guessedCorrectLettersAndPos.includes(guessingWord[i])) {
                                 setGuessedCorrectLetters(prev => [...prev, guessingWord[i]])
-                            // }
+                            }
                         }
 
                     } else {
@@ -210,6 +208,12 @@ export default function Wordle() {
 
                             return newGuessedPos
                         })
+                        
+                        if (!guessedCorrectLettersAndPos.includes(guessingWord[i])) {
+                            console.log("oi");
+                            
+                            setGuessedCorrectLetters(prev => [...prev, guessingWord[i]])
+                        }
                     }
                 }
 
@@ -293,8 +297,8 @@ export default function Wordle() {
 
     return (
         <>
-            <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} restartClicked={restartClicked} setRestartClicked={setRestartClicked}/>
             <Navbar gameCategory={gameCategory} setGameCategory={setGameCategory} gameLength={gameLength} setGameLength={setGameLength} modeChanged={modeChanged} setModeChanged={setModeChanged}/>
+            <GameOver randomWord={randomWord} gameOver={gameOver} userWon={userWon} restartClicked={restartClicked} setRestartClicked={setRestartClicked}/>
             <main>
                 <WordsBoard word={randomWord} nbrWordsGuessed={nbrWordsGuessed} guessingWord={guessingWord} guessedWords={guessedWords} guessedPos={guessedPos} shake={shake} flip={flip}/>
                 <Keyboard letterClicked={letterClicked} deleteClicked={deleteClicked} enterClicked={enterClicked} guessedLetters={guessedLetters} guessedCorrectLetters={guessedCorrectLetters} guessedCorrectLettersAndPos={guessedCorrectLettersAndPos}/>
