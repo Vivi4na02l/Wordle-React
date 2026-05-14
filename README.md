@@ -1,16 +1,66 @@
-# React + Vite
+# React Wordle
+A customizable Wordle-inspired game built with React, featuring category selection, variable word lengths, and real-time word validation using external APIs.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🔗 Live Demo  
+[Play the game](https://vivi4na02l.github.io/Wordle-React/)
 
-Currently, two official plugins are available:
+## Preview
+![React Wordle preview](./wordle_screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Multiple word categories:
+  - Animals
+  - Countries
+  - Sports
 
-## React Compiler
+- Adjustable word length:
+  - 4 letters
+  - 5 letters
+  - 6 letters
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Real-time validation for user input
+- Visual feedback system inspired by the original Wordle
+- Dynamic word generation using external APIs
+- Responsive interface
 
-## Expanding the ESLint configuration
+## Default Configuration
+When opening the game, the default settings are:
+- Category: Animals
+- Word length: 5 letters
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## APIs Used
+
+### Random Word API
+Used to generate random words based on selected category and word length.
+
+https://random-words-api.kushcreates.com/
+
+### Dictionary API
+Used to validate whether typed words exist.
+
+https://dictionaryapi.dev/
+
+### REST Countries API
+Used specifically to validate country names, since the dictionary API does not recognize many countries.
+
+https://restcountries.com/
+
+## Tech Stack
+
+- React
+- JavaScript (ES6+)
+- CSS3
+- REST APIs
+
+## What I Focused On
+
+- State management in React
+- Dynamic API integration
+- Conditional rendering
+- Input validation logic
+- Handling multiple validation sources
+- Creating a customizable gameplay experience
+
+## Project Context
+
+This project was developed to further explore React fundamentals, component-based architecture, and API integration while recreating and extending the mechanics of the classic Wordle game.
