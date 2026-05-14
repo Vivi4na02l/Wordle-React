@@ -103,7 +103,18 @@ export default function Wordle() {
             setGuessingWord([]) //restarts the value that stores the word being currently written
         } else {
             // console.log("word doesn't exist");
-            triggerShake()
+            const countryExists = await isGuessedWordCountry(guessedWord);
+
+            if (countryExists) {
+                validateGuessedWord();
+                triggerFlip();
+
+                setGuessedWords(prevGuessedWords => [...prevGuessedWords, guessedWord]) //pushes guessedWord to the array
+                setNbrWordsGuessed(nbrPrev => nbrPrev +1) //moves on to the next line
+                setGuessingWord([]) //restarts the value that stores the word being currently written
+            } else {
+                triggerShake()
+            }
         }
     }
 
@@ -244,6 +255,31 @@ export default function Wordle() {
             }
 
             // word exists
+            const data = await response.json();
+            console.log(data);
+            return true
+        }
+
+        catch (error) {
+            console.log('error: '+error);
+            return false
+        }
+    }
+
+    async function isGuessedWordCountry(word) {
+        try {
+            const response = await fetch(
+                `https://restcountries.com/v3.1/name/${word}`
+            );
+
+            if (!response.ok) {
+                const doesNotExistData = await response.json();
+                console.log(doesNotExistData);
+                // country doesn't exist
+                return false
+            }
+
+            // country exists
             const data = await response.json();
             console.log(data);
             return true
